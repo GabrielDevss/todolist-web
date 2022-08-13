@@ -1,0 +1,11 @@
+.content {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+}
+
+.content strong {
+  line-height: 22.4px;
+  margin-top: 1.6rem;
+}
