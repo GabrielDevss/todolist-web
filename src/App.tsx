@@ -35,6 +35,33 @@ export function App() {
     setNewTaskText(event.target.value);
   } 
 
+  function handleToggleCompleteTask(id: string) {
+    console.log(id);
+    const editedTasks = tasks.map(task => {
+      if (task.id === id) {
+        return {
+          ...task,
+          isComplete: !task.isComplete
+        }
+      }
+
+      return task
+    });
+    console.log(editedTasks);
+    setTasks(editedTasks)
+  }
+
+  function countCompleteTasks() {
+    let count = 0
+
+    tasks.map(task => {
+      if (task.isComplete == true) {
+        count = count + 1
+      }
+    })
+    return count
+  }
+
   function deleteTask(taskToDelete: string) {
     const tasksWithOutDeleteOne = tasks.filter(task => {
       return task.id !== taskToDelete;
@@ -44,6 +71,7 @@ export function App() {
   }
 
   const allTasks = tasks.length;
+  const allTasksCompleted = countCompleteTasks();
 
   return (
     <div className={styles.container}>
@@ -72,7 +100,7 @@ export function App() {
         </div>
         <div className={styles.countTask}>
           <strong>Concluidas</strong>
-          <span>{0}</span>
+          <span>{`${allTasksCompleted} de ${allTasks}`}</span>
         </div>
       </div>
 
@@ -81,7 +109,10 @@ export function App() {
     {  tasks.length ? 
       tasks.map(task => (
         <CardList key={task.id} id={task.id} title={task.title} 
-        onDeleteTask={deleteTask} isComplete={false} />
+        onDeleteTask={deleteTask} 
+        isComplete={task.isComplete} 
+        onHandleToggle={handleToggleCompleteTask}
+        />
   
       ))
       :
