@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { PlusCircle } from "phosphor-react";
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from "uuid";
 
 import { CardListEmpty } from "./components/CardListEmpty";
 import { CardList } from "./components/CardList";
@@ -25,7 +25,7 @@ export function App() {
       id: uuid(),
       title: newTaskText,
       isComplete: false,
-    }
+    };
 
     setTasks([...tasks, newTask]);
     setNewTaskText("");
@@ -33,37 +33,35 @@ export function App() {
 
   function handleCreateNewTaskChange(event: ChangeEvent<HTMLInputElement>) {
     setNewTaskText(event.target.value);
-  } 
+  }
 
   function handleToggleCompleteTask(id: string) {
-    console.log(id);
-    const editedTasks = tasks.map(task => {
+    const editedTasks = tasks.map((task) => {
       if (task.id === id) {
         return {
           ...task,
-          isComplete: !task.isComplete
-        }
+          isComplete: !task.isComplete,
+        };
       }
 
-      return task
+      return task;
     });
-    console.log(editedTasks);
-    setTasks(editedTasks)
+    setTasks(editedTasks);
   }
 
   function countCompleteTasks() {
-    let count = 0
+    let count = 0;
 
-    tasks.map(task => {
+    tasks.map((task) => {
       if (task.isComplete == true) {
-        count = count + 1
+        count = count + 1;
       }
-    })
-    return count
+    });
+    return count;
   }
 
   function deleteTask(taskToDelete: string) {
-    const tasksWithOutDeleteOne = tasks.filter(task => {
+    const tasksWithOutDeleteOne = tasks.filter((task) => {
       return task.id !== taskToDelete;
     });
 
@@ -84,7 +82,7 @@ export function App() {
           value={newTaskText}
           type="text"
           placeholder="Adicione uma nova tarefa"
-          onChange={handleCreateNewTaskChange} 
+          onChange={handleCreateNewTaskChange}
           required
         />
         <button type="submit">
@@ -105,20 +103,20 @@ export function App() {
       </div>
 
       <div className={styles.content}>
-    
-    {  tasks.length ? 
-      tasks.map(task => (
-        <CardList key={task.id} id={task.id} title={task.title} 
-        onDeleteTask={deleteTask} 
-        isComplete={task.isComplete} 
-        onHandleToggle={handleToggleCompleteTask}
-        />
-  
-      ))
-      :
-      <CardListEmpty />
-      }
-
+        {tasks.length ? (
+          tasks.map((task) => (
+            <CardList
+              key={task.id}
+              id={task.id}
+              title={task.title}
+              onDeleteTask={deleteTask}
+              isComplete={task.isComplete}
+              onHandleToggle={handleToggleCompleteTask}
+            />
+          ))
+        ) : (
+          <CardListEmpty />
+        )}
       </div>
     </div>
   );

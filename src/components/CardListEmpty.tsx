@@ -3,7 +3,7 @@ import clipboardSvg from "../assets/clipboard.svg";
 
 export function CardListEmpty() {
   return (
-    <div className={styles.content} >
+    <div className={styles.content}>
       <img src={clipboardSvg} alt="image de uma prancheta de lista" />
 
       <strong>Você ainda não tem tarefas cadastradas</strong>
